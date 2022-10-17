@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="crosswordPuzzle" type="com.pkang.findtranslations.viewmodel.CrosswordScreenViewModel"/>
+        <variable name="crosswordGame" type="com.pkang.findtranslations.viewmodel.CrosswordGameViewModel"/>
+        <variable name="crosswordScreen" type="com.pkang.findtranslations.view.CrosswordScreenFragment"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context=".view.CrosswordScreenFragment">
+
+        <ProgressBar
+            android:id="@+id/screen_progress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_spacing"
+            android:layout_marginBottom="@dimen/half_spacing"
+            android:indeterminate="false"
+            android:progressTint="@color/found"
+            android:scaleY="2"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintLeft_toLeftOf="@id/crossword_puzzle_content"
+            app:layout_constraintRight_toRightOf="@id/crossword_puzzle_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            app:layout_constraintBottom_toTopOf="@id/srouce_legend_top_barrier"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/srouce_legend_top_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="source_locale,source_word" />
+
+        <TextView
+            android:id="@+id/source_locale"
+            style="@style/CrosswordLetterTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{crosswordPuzzle.sourceLocaleLabel}"
+            app:layout_constraintBottom_toTopOf="@id/target_locale"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@id/crossword_puzzle_content"
+            app:layout_constraintRight_toLeftOf="@id/source_word"
+            app:layout_constraintTop_toBottomOf="@id/screen_progress" />
+
+        <TextView
+            android:id="@+id/source_word"
+            style="@style/CrosswordLetterTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/crossword_letter_found"
+            android:text="@{crosswordPuzzle.sourceWord}"
+            app:layout_constraintBottom_toTopOf="@id/target_word"
+            app:layout_constraintLeft_toRightOf="@id/source_locale"
+            app:layout_constraintRight_toRightOf="@id/crossword_puzzle_content"
+            app:layout_constraintTop_toBottomOf="@id/screen_progress" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/source_legend_bottom_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="source_locale,source_word" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/target_legend_top_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="target_locale,target_word" />
+
+        <TextView
+            android:id="@+id/target_locale"
+            style="@style/CrosswordLetterTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{crosswordPuzzle.targetLocaleLabel}"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@id/crossword_puzzle_content"
+            app:layout_constraintRight_toRightOf="@id/source_locale"
+            app:layout_constraintTop_toBottomOf="@id/source_locale"
+            app:layout_constraintBottom_toTopOf="@id/crossword_puzzle_content"/>
+
+        <TextView
+            android:id="@+id/target_word"
+            style="@style/CrosswordLetterTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/crossword_target_background"
+            android:enabled="@{safeUnbox(crosswordPuzzle.isSelectionCorrect()) ? true : false}"
+            android:text="@{crosswordPuzzle.selectedLetters ?? @string/question_mark}"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/target_locale"
+            app:layout_constraintRight_toRightOf="@id/crossword_puzzle_content"
+            app:layout_constraintTop_toBottomOf="@id/source_word"
+            app:layout_constraintBottom_toTopOf="@id/crossword_puzzle_content"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/target_legend_bottom_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="target_locale,target_word" />
+
+        <com.pkang.findtranslations.view.CrosswordPuzzleLayout
+            android:id="@+id/crossword_puzzle_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alignmentMode="alignMargins"
+            android:background="@drawable/crossword_puzzle_background"
+            android:orientation="horizontal"
+            android:useDefaultMargins="false"
+            app:layout_constraintTop_toBottomOf="@id/target_legend_bottom_barrier"
+            app:layout_constraintBottom_toTopOf="@id/button_top_barrier"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/button_top_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="skip_button,next_button" />
+
+        <Button
+            android:id="@+id/skip_button"
+            style="@style/CrosswordLetterTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="@{safeUnbox(crosswordPuzzle.isSelectionCorrect()) ? 0.5f : 1f}"
+            android:background="@drawable/crossword_letter_incorrect"
+            android:enabled="@{safeUnbox(crosswordPuzzle.isSelectionCorrect()) ? false : true}"
+            android:onClick="@{() -> crosswordScreen.onNextPressed(false)}"
+            android:text="@string/skip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/next_button" />
+
+        <Button
+            android:id="@+id/next_button"
+            style="@style/CrosswordLetterTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="@{safeUnbox(crosswordPuzzle.isSelectionCorrect()) ? 1.f : 0.5f}"
+            android:background="@drawable/crossword_letter_found"
+            android:enabled="@{safeUnbox(crosswordPuzzle.isSelectionCorrect()) ? true : false}"
+            android:onClick="@{(view) -> crosswordScreen.onNextPressed(true)}"
+            android:text="@{safeUnbox(crosswordGame.isLastLevel()) ? @string/finish : @string/next}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintLeft_toRightOf="@id/skip_button"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

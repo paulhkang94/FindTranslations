@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FindTranslations</string>
+
+    <!--labels-->
+    <string name="game_won_congratulations_message">Congratulations! You have won the game!</string>
+    <string name="exit_confirmation_title">Are you sure you want to quit?</string>
+    <string name="exit_confirmation_message">All progress will be lost.</string>
+    <string name="question_mark">\?</string>
+
+    <!--button labels-->
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="finish">Finish</string>
+    <string name="quit">Quit</string>
+    <string name="cancel">Cancel</string>
+    <string name="refresh_button">Refresh</string>
+</resources>

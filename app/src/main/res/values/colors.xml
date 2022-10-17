@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Kiwi-->
+    <color name="colorPrimary">#8EE000</color>
+    <!--Kiwi Dark-->
+    <color name="colorPrimaryDark">#7AC70C</color>
+    <!--Rasberry-->
+    <color name="colorAccent">#A560EB</color>
+
+    <!--Raspberry Light-->
+    <color name="incorrect">#FF9797</color>
+    <color name="found">@color/colorPrimaryDark</color>
+
+    <!--Pumpkin-->
+    <color name="puzzle_selected_background_color">#FF9400</color>
+    <!--Banana-->
+    <color name="puzzle_selected_border_color">#FFC300</color>
+    <!--Banana Dark-->
+    <color name="puzzle_label_background_color">#FFB020</color>
+    <!--Pumpkin Dark-->
+    <color name="puzzle_label_border_color">#FA811B</color>
+
+    <!--Raspberry-->
+    <color name="puzzle_background_color">#E53B3B</color>
+    <!--Cocoa Dark-->
+    <color name="activity_background_color">#864E1B</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#F0F0F0</color>
+</resources>
